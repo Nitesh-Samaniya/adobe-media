@@ -87,4 +87,26 @@ app.put("/:id", async (req, res) => {
     }
 });
 
+
+// Route handler for DELETE requests to delete a user by id
+app.delete("/:id", async (req, res) => {
+    try {
+        // Find the user in the database using the provided id
+        const user = await UserModel.findById(req.params.id);
+        // If no user is found, return a 404 status code with an error message
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+        // Remove the user from the database
+        await user.remove();
+        // Return a response with a success message
+        return res.send("User deleted successfully");
+    } catch (e) {
+        // If there's an error while processing the request, return a 500 status code with the error message
+        return res.status(500).send(e.message);
+    }
+});
+
+
+
 module.exports = app;
