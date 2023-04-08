@@ -12,19 +12,19 @@ const app = express.Router();
 app.get("/", async (req,res)=> {
      // Retrieve all users from the database
     const users = await UserModel.find();
-    
     // Return a response with the retrieved users
     return res.send(users)
 })
+
 
 // Route handler for POST requests to Create a new user.
 app.post("/", async(req,res)=> {
     // Extract name, email, password, and bio from the request body
     let {name, email, password, bio } = req.body;
-
+    
     // Hash the password using the argon2 library
     const hash = await argon2.hash(password);
-    
+
     // Check if a user with the same email already exists in the database
     let user = await UserModel.findOne({email});
 
@@ -45,6 +45,24 @@ app.post("/", async(req,res)=> {
     }
 
 })
+
+
+// Route handler for GET requests to the /users/:id endpoint
+app.get("/:id", async (req, res) => {
+    try {
+        // Find the user in the database using the provided id
+        const user = await UserModel.findById(req.params.id);
+        // If no user is found, return a 404 status code with an error message
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+        // If a user is found, return a response with the user information
+        return res.send(user);
+    } catch (e) {
+        // If there's an error while processing the request, return a 500 status code with the error message
+        return res.status(500).send(e.message);
+    }
+});
 
 
 module.exports = app;
