@@ -5,8 +5,9 @@ const PostModel = require("../models/post.model");
 // Create a new instance of the express router
 const app = express.Router();
 
-app.get("/", (req,res)=>{
-    return res.send("post page")
+app.get("/", async(req,res)=>{
+    const posts = await PostModel.find();
+    return res.send(posts)
 })
 
 // Handle Route to create new post with user's ID
@@ -33,5 +34,22 @@ app.post('/', async (req, res) => {
       res.status(500).json({ message: 'Error creating post' });
     }
 });
+
+// Handle the GET request to get a particular post by post's id
+app.get("/:id", async(req,res)=>{
+    try{
+        //find the post from request parameter 
+        const post = await PostModel.findById(req.params.id);
+
+        // If no post is found, return a 404 response
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        // Return the post object in the response body
+        return res.status(200).send(post)
+    }catch (e) {
+        return res.status(500).send(e)
+    }
+})
 
 module.exports = app;
