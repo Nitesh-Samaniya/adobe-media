@@ -52,4 +52,32 @@ app.get("/:id", async(req,res)=>{
     }
 })
 
+// PUT request to change the content of the post by post's id
+app.put('/:id', async (req, res) => {
+    try {
+      // Get the post id from the request parameters
+      const { id } = req.params;
+  
+      // Find the post with the given id using the PostModel
+      const post = await PostModel.findById(id);
+  
+      // If no post is found, return a 404 response
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+  
+      // Update the post's content with the new content from the request body
+      post.content = req.body.content;
+  
+      // Save the updated post to the database
+      await post.save();
+  
+      // Return a success response with the updated post object in the response body
+      res.status(200).json(post);
+    } catch (err) {
+      // If there's an error, return an error response
+      res.status(500).json({ message: 'Error updating post' });
+    }
+  });
+
 module.exports = app;
