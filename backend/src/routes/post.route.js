@@ -78,6 +78,32 @@ app.put('/:id', async (req, res) => {
       // If there's an error, return an error response
       res.status(500).json({ message: 'Error updating post' });
     }
-  });
+});
+
+// DELETE request to delete the particular post by post's id
+app.delete('/:id', async (req, res) => {
+  try {
+    // Get the post id from the request parameters
+    const { id } = req.params;
+
+    // Find the post with the given id using the PostModel
+    const post = await PostModel.findById(id);
+
+    // If no post is found, return a 404 response
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Delete the post from the database
+    await post.delete();
+
+    // Return a success response with a message indicating that the post was deleted
+    res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (err) {
+    // If there's an error, return an error response
+    console.error(err);
+    res.status(500).json({ message: 'Error deleting post' });
+  }
+});
 
 module.exports = app;
