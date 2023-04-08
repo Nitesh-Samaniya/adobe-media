@@ -8,6 +8,8 @@ const bodyparser = require("body-parser");
 const connect = require("./config/db");
 const PORT = process.env.PORT || 8080;
 
+const userRouter = require("./routes/user.route");
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -16,6 +18,7 @@ app.use(bodyparser.json());
 
 mongoose.set("strictQuery", false);
 
+app.use("/users", userRouter);
 
 app.get("/", (req,res)=> {
     res.send("Adobe Media");
