@@ -108,5 +108,19 @@ app.delete("/:id", async (req, res) => {
 });
 
 
+// Route handler for GET requests to count total number of users
+app.get("/analytics/users", async (req, res) => {
+    try {
+        // Count the number of users in the database
+        const count = await UserModel.countDocuments();
+        // Return a response with the total number of users
+        return res.send(`Total number of users: ${count}`);
+    } catch (e) {
+        // If there's an error while processing the request, return a 500 status code with the error message
+        return res.status(500).send(e.message);
+    }
+});
+
+
 
 module.exports = app;
