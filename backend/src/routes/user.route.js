@@ -21,7 +21,7 @@ app.get("/", async (req,res)=> {
 app.post("/", async(req,res)=> {
     // Extract name, email, password, and bio from the request body
     let {name, email, password, bio } = req.body;
-    
+
     // Hash the password using the argon2 library
     const hash = await argon2.hash(password);
 
@@ -64,5 +64,27 @@ app.get("/:id", async (req, res) => {
     }
 });
 
+
+// Route handler for PUT requests to the update user name or bio
+app.put("/:id", async (req, res) => {
+    try {
+        // Find the user in the database using the provided id
+        const user = await UserModel.findById(req.params.id);
+        // If no user is found, return a 404 status code with an error message
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+        // Update the user's name or bio based on the provided request body
+        user.name = req.body.name || user.name;
+        user.bio = req.body.bio || user.bio;
+        // Save the updated user object to the database
+        await user.save();
+        // Return a response with the updated user object
+        return res.send(user);
+    } catch (e) {
+        // If there's an error while processing the request, return a 500 status code with the error message
+        return res.status(500).send(e.message);
+    }
+});
 
 module.exports = app;
