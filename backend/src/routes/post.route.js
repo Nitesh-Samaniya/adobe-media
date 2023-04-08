@@ -106,4 +106,63 @@ app.delete('/:id', async (req, res) => {
   }
 });
 
+//Handle request to increment the like by one
+app.post('/:id/like', async (req, res) => {
+  try {
+    // Get the post id from the request parameters
+    const { id } = req.params;
+
+    // Find the post with the given id 
+    const post = await PostModel.findById(id);
+
+    // If no post is found, return a 404 response
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Increment the like count of the post by 1
+    post.likes++;
+
+    // Save the updated post to the database
+    await post.save();
+
+    // Return a success response with the updated post data
+    res.status(200).json({ post });
+  } catch (err) {
+    // If there's an error, return an error response
+    console.error(err);
+    res.status(500).json({ message: 'Error updating post' });
+  }
+});
+
+
+//Handle request to decrement the like by 1 but if like is 0 then don't decrement
+app.post('/:id/unlike', async (req, res) => {
+  try {
+    // Get the post id from the request parameters
+    const { id } = req.params;
+
+    // Find the post with the given id using the PostModel
+    const post = await PostModel.findById(id);
+
+    // If no post is found, return a 404 response
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Decrement the like count of the post by 1, but not below 0
+    post.likes = Math.max(0, post.likes - 1);
+
+    // Save the updated post to the database
+    await post.save();
+
+    // Return a success response with the updated post data
+    res.status(200).json({ post });
+  } catch (err) {
+    // If there's an error, return an error response
+    console.error(err);
+    res.status(500).json({ message: 'Error updating post' });
+  }
+});
+
 module.exports = app;
