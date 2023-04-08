@@ -16,6 +16,7 @@ const PORT = process.env.PORT || 8080;
 //import user and post routes
 const userRouter = require("./routes/user.route");
 const postRouter = require("./routes/post.route");
+const analyticsRouter = require("./routes/analytics.route");
 
 // Create an instance of the express app
 const app = express();
@@ -36,6 +37,7 @@ mongoose.set("strictQuery", false);
 // Handle requests to the /users endpoint with the userRouter
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
+app.use("/analytics", analyticsRouter);
 
 // Handle requests to the root endpoint
 app.get("/", (req,res)=> {
