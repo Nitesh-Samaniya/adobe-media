@@ -3,16 +3,7 @@ import { Box, Text } from '@chakra-ui/react'
 import axios from 'axios';
 import PostCard from './PostCard';
 
-const GetAllPosts = () => {
-    const [posts, setPosts] = useState([]);
-
-    async function allPosts(){
-        await axios.get("https://adobemedia.onrender.com/posts")
-       .then((res)=>setPosts(res.data))
-       .catch((e)=>{
-        console.log(e);
-       })
-    }
+const GetAllPosts = ({posts, allPosts}) => {
 
     const handleLikes = async(id)=>{
         await axios({
@@ -65,6 +56,7 @@ const GetAllPosts = () => {
                     handleLikes={handleLikes}
                     handleDisLikes={handleDisLikes}
                     handleDeletePost={handleDeletePost}
+                    allPosts={allPosts}
                 />
             ))
         }

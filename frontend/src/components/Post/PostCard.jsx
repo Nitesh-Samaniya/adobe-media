@@ -3,8 +3,9 @@ import { Box, Text } from '@chakra-ui/react'
 import { FcLike } from 'react-icons/fc';
 import { FcDislike } from 'react-icons/fc';
 import { AiFillDelete } from 'react-icons/ai';
+import ChangeContent from './ChangeContent';
 
-const PostCard = ({post_id, user_id, content, likes, createdAt, handleLikes, handleDisLikes, handleDeletePost}) => {
+const PostCard = ({post_id, user_id, content, likes, createdAt, handleLikes, handleDisLikes, handleDeletePost, allPosts}) => {
   createdAt = createdAt.split('-')
 
   return (
@@ -28,7 +29,7 @@ const PostCard = ({post_id, user_id, content, likes, createdAt, handleLikes, han
           </Box>
 
           <Box>
-            <Text fontFamily={'cursive'} fontWeight={'bold'} cursor={'pointer'} fontSize={'20px'} color={'blue'}>Alter</Text>
+            <ChangeContent post_id={post_id} allPosts={allPosts}/>
           </Box>
         </Box>
     </Box>

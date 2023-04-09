@@ -17,7 +17,7 @@ const AllPost = () => {
   return (
     <Box mt={'80px'}>
         <CreatePost allPosts={allPosts}/>
-        <GetAllPosts />
+        <GetAllPosts posts={posts} allPosts={allPosts}/>
     </Box>
   )
 }
