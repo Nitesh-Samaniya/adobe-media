@@ -27,7 +27,7 @@ app.get('/posts', async (req, res) => {
       const totalPosts = await PostModel.countDocuments();
   
       // Return a success response with the total number of posts
-      return res.status(200).send({totalPosts});
+      return res.send(`Total number of users: ${totalPosts}`);
     } catch (err) {
       // If there's an error, return an error response
       console.error(err);
