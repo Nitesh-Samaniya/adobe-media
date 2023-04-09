@@ -22,6 +22,7 @@ import { useContext, useState } from 'react';
 import CreateAcount from '../Account/CreateAcount';
 import { AccountContext } from '../../App';
 import UserProfile from '../Account/UserProfile';
+import Analytics from '../Analytics/Analytics';
 
 export const NavLink = ({ children }) => (
   <Link
@@ -52,9 +53,10 @@ export default function Nav() {
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
 
-            <Button>
+            {/* <Button>
               {<IoMdAnalytics size={30}/>}
-            </Button>
+            </Button> */}
+            <Analytics />
 
             {
               haveUser ? <UserProfile /> : <CreateAcount />

@@ -6,7 +6,7 @@ import AllPost from './components/pages/AllPost';
 
 export const AccountContext = createContext();
 function App() {
-  const [haveUser, setHasUser] = useState(true);
+  const [haveUser, setHasUser] = useState(false);
   
   const toggleHaveUser = ()=>{
     setHasUser(!haveUser);
