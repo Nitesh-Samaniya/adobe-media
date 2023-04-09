@@ -40,6 +40,12 @@ const GetAllPosts = () => {
             .catch((e)=>console.log(e.response.data))
   }
 
+    const handleDeletePost = async(id)=>{
+        await axios.delete(`https://adobemedia.onrender.com/posts/${id}`)
+        .then((res)=>allPosts())
+        .catch((e)=>console.log(e.response.data))
+    }
+
     useEffect(()=>{
         allPosts();
     },[])
@@ -58,6 +64,7 @@ const GetAllPosts = () => {
                     createdAt={el.createdAt}
                     handleLikes={handleLikes}
                     handleDisLikes={handleDisLikes}
+                    handleDeletePost={handleDeletePost}
                 />
             ))
         }

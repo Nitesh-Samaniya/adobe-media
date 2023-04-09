@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Textarea, Text, Button, useToast } from '@chakra-ui/react'
 import axios from 'axios';
 
-const CreatePost = () => {
+const CreatePost = ({allPosts}) => {
     const [content, setContent] = useState("");
     const toast = useToast();
     const profile = JSON.parse(localStorage.getItem("adobeMedia")) || "";
@@ -34,6 +34,7 @@ const CreatePost = () => {
               })
                 .then((res) => {
                     // console.log(res.data);
+                    allPosts()
                     toast({
                       title: 'Published',
                       status: 'success',
