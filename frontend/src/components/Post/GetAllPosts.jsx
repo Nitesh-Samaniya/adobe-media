@@ -6,13 +6,44 @@ import PostCard from './PostCard';
 const GetAllPosts = () => {
     const [posts, setPosts] = useState([]);
 
-    useEffect(()=>{
-       axios.get("https://adobemedia.onrender.com/posts")
+    async function allPosts(){
+        await axios.get("https://adobemedia.onrender.com/posts")
        .then((res)=>setPosts(res.data))
        .catch((e)=>{
         console.log(e);
-       }) 
+       })
+    }
+
+    const handleLikes = async(id)=>{
+        await axios({
+        url: `https://adobemedia.onrender.com/posts/${id}/like`,
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+        })
+            .then((res)=>allPosts())
+            .catch((e)=>console.log(e.response.data))
+  }
+
+  const handleDisLikes = async(id)=>{
+        await axios({
+        url: `https://adobemedia.onrender.com/posts/${id}/unlike`,
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+        })
+            .then((res)=>allPosts())
+            .catch((e)=>console.log(e.response.data))
+  }
+
+    useEffect(()=>{
+        allPosts();
     },[])
+
   return (
     <Box mt={10}>
         <Text mb={5} fontFamily={'cursive'} fontSize={'2xl'}>Browse Posts</Text>
@@ -20,10 +51,13 @@ const GetAllPosts = () => {
             posts?.map((el)=>(
                 <PostCard
                     key={el._id}
+                    post_id={el._id}
                     user_id={el.user_id} 
                     content={el.content}
                     likes={el.likes}
                     createdAt={el.createdAt}
+                    handleLikes={handleLikes}
+                    handleDisLikes={handleDisLikes}
                 />
             ))
         }
