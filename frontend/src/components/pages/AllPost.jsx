@@ -1,10 +1,12 @@
 import React from 'react'
+import { Box } from '@chakra-ui/react'
+import CreatePost from '../Post/CreatePost'
 
 const AllPost = () => {
   return (
-    <div style={{marginTop: "200px"}}>
-        <h1>All Posts</h1>
-    </div>
+    <Box mt={'80px'}>
+        <CreatePost />
+    </Box>
   )
 }
 
