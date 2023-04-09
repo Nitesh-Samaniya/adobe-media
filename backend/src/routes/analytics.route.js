@@ -11,9 +11,9 @@ const app = express.Router();
 app.get("/users", async (req, res) => {
     try {
         // Count the number of users in the database
-        const count = await UserModel.countDocuments();
+        const count = await UserModel.find();
         // Return a response with the total number of users
-        return res.send(`Total number of users: ${count}`);
+        return res.status(200).send(count);
     } catch (e) {
         // If there's an error while processing the request, return a 500 status code with the error message
         return res.status(500).send(e.message);
@@ -24,10 +24,10 @@ app.get("/users", async (req, res) => {
 app.get('/posts', async (req, res) => {
     try {
       // Get the total number of posts 
-      const totalPosts = await PostModel.countDocuments();
+      const totalPosts = await PostModel.find();
   
       // Return a success response with the total number of posts
-      return res.send(`Total number of users: ${totalPosts}`);
+      return res.status(200).send(totalPosts);;
     } catch (err) {
       // If there's an error, return an error response
       console.error(err);
