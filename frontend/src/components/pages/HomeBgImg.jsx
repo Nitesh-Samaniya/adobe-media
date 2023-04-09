@@ -5,7 +5,7 @@ import bg_img from "../../images/bg_img.jpg"
 const HomeBgImg = () => {
   return (
     <Box>
-        <Image src={bg_img} alt='bg_img'/>
+        <Image src={bg_img} alt='bg_img' />
     </Box>
   )
 }
