@@ -67,10 +67,3 @@ Start the server
   npm run start
 ```
 
-### `Screenshots of screen in all three devices`
-
-![home page](../adobe-media/frontend/screenshots/home.png)
-![userCreate](../adobe-media/frontend/screenshots/userCreate.png)
-![profile](../adobe-media/frontend/screenshots/profile.png)
-![posts](../adobe-media/frontend/screenshots/posts.png)
-![changeContent](../adobe-media/frontend//screenshots/changeContent.png)
