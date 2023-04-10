@@ -2,7 +2,7 @@ import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFoo
 import React from "react";
 import { IoMdAnalytics } from "react-icons/io";
 import Count from "./Count";
-import TopLikePost from "./TopLikePost";
+// import TopLikePost from "./TopLikePost";
 
 function Analytics() {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -22,13 +22,13 @@ function Analytics() {
           size={'md'}
         >
           <DrawerOverlay />
-          <DrawerContent>
+          <DrawerContent height="30%  !important">
             <DrawerCloseButton />
             <DrawerHeader>Analytics</DrawerHeader>
   
             <DrawerBody>
                 <Count />
-                <TopLikePost />
+                {/* <TopLikePost /> */}
             </DrawerBody>
   
             <DrawerFooter>
